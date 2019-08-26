@@ -45,10 +45,10 @@ emitter.emit('userSignIn',username,pwd);//In once not executed this line
 class MyEmitter extends  event{};
 const myEmitter = new MyEmitter();
 myEmitter.on('events', () => {
-    console.log("events one");
+    // console.log("events one");
 });
 myEmitter.on('events', () => {
-    console.log("event two");
+    // console.log("event two");
 });
 console.log(emitter.listenerCount(myEmitter, 'events'));
 

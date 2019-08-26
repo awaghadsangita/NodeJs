@@ -17,3 +17,13 @@ fs.readFile(filename,function(err,data){
         console.log('Asynchronus Read Opereation\n'+data.toString());    
 });
 console.log('after read operation ');
+
+console.log("Enter data to write in file");
+let asynContent=utility.getString();
+
+ fs.writeFile(filename,asynContent,function(err){
+    if(err)
+    console.log(err);
+    else
+    console.log("write operatiion complete");
+});
