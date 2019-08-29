@@ -13,9 +13,16 @@ temperaturConversion=()=>{
     let fahrenheit=utility.getFloatInput();
     
     let celsius=utility.convertTemperatur(fahrenheit,"C");
-    console.log(`Temperature in Celsius :${celsius}`);
-
-    fahrenheit=utility.convertTemperatur(celsius,"F");
-    console.log(`Temperature in Fahrenheit :${fahrenheit}`);
+    if(celsiuc["testcaseresult"]=='success')
+    {
+        console.log(`Temperature in Celsius :${celsius["result"]}`);
+        fahrenheit=utility.convertTemperatur(celsius,"F");
+        if(fahrenheit['testcaseresult']=='success')        
+            console.log(`Temperature in Fahrenheit :${fahrenheit["result"]}`);
+        else
+            console.log(`error occured :${fahrenheit["testcaseresult"]}`);
+    }else
+    console.log(`error occured :${celsius["testcaseresult"]}`);
+    
 }
 module.exports = temperaturConversion();

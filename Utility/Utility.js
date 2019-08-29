@@ -2,8 +2,8 @@
  * @purpose :contains all methods which are require frequently in different module
  * 
  * @author  :sangita awaghad
- * @since   :21-08-2019
  * @version :1.0
+ * @since   :21-08-2019
  * 
  **********************************************************************************/
 const readInput = require('readline-sync');
@@ -23,15 +23,15 @@ module.exports = {
             return inputString;
         }
         else {
-            throw new Error('input must contain letters only');
+            throw 'input must contain letters only';
         }
     },
     /**
      * return string containing alphanumeric and special characters
      */
     getNextLine() {
-       
-       return readInput.question();
+
+        return readInput.question();
     },
     /**
      * return number from keyboard
@@ -149,41 +149,97 @@ module.exports = {
         return coupans;
     },
     /**
+     * reture array two d array contains all elements adds to zero
+     */
+    sumofThreeIntegerAddsZero(a) {
+        try {
+            if (a.length <= 0)
+                throw 'size of array should not be less than one';
+            for (let i = 0; i < a.length; i++) {
+                if (typeof a[i] == 'string')
+                    throw 'array element should not be string';
+            }
+            let arr = [];
+
+            for (let first = 0; first < a.length - 2; first++) {
+                for (let second = first + 1; second < a.length - 1; second++) {
+                    for (let third = second + 1; third < a.length; third++) {
+                        if (a[first] + a[second] + a[third] == 0) {
+                            arr.push({ "first": a[first], "second": a[second], "third": a[third] });
+
+                        }
+                    }
+                }
+            }
+            return { "result": arr, "testcaseresult": "success" };
+        }
+        catch (e) {
+            return { "result": "", "testcaseresult": e };
+        }
+    }
+    ,
+    /**
      * return distance from origin(0,0) to point(x,y)
      */
     calculateDistance(x, y) {
-        let distance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-        return distance;
+        try {
+            if (typeof x == 'string' || typeof y == 'string')
+                throw 'value of x and value of y should not be string';
+
+            let distance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+            return { "result": distance, "testcaseresult": "success" };
+        } catch (e) {
+            return { "result": "", "testcaseresult": e };
+        }
     },
     /**
      *return all permutation of given string 
      */
     findPermutation(word, l, r, totalPermute) {
-        if (l == r) {
-            permute[count] = word;
-            count = count + 1;
-            if (count == totalPermute) {
-                let i, j, k = 0;
-                for (i = 0; i < totalPermute; i++) {
-                    for (j = 0; j < i; j++) {
-                        if (permute[j].localeCompare(permute[i]) === 0)
-                            break;
+        try {
+            if(typeof word=='number')
+            {
+                throw "input value should not be number";
+            }
+            if(word.length==0)
+            {
+                throw "input value should not be of length zero";
+            }
+            let format=/^[a-zA-Z]{1,}$/;
+            if(!format.test(word))
+            {
+                throw "input value should not be contain special symbol";
+            }
+            if (l == r) {
+                permute[count] = word;
+                count = count + 1;
+                if (count == totalPermute) {
+                    let itr, j, k = 0;
+                    for (itr = 0; itr < totalPermute; itr++) {
+                        for (j = 0; j < itr; j++) {
+                            if (permute[j].localeCompare(permute[itr]) === 0)
+                                break;
+                        }
+                        if (itr == j) {
+                            permute[k] = permute[itr];
+                            k++;
+                        }
                     }
-                    if (i == j) {
-                        permute[k] = permute[i];
-                        k++;
-                    }
+                    console.log(permute);
+                    return {"result":permute,"testcaseresult":"success"};
                 }
-                console.log(permute);
-                return permute;
+                
+                
             }
-        }
-        else {
-            for (let i = l; i <= r; i++) {
-                word = this.swapString(word, l, i);
-                this.findPermutation(word, l + 1, r, totalPermute);
-                word = this.swapString(word, l, i);
+            else {
+                for (let i = l; i <= r; i++) {
+                    word = this.swapString(word, l, i);
+                    this.findPermutation(word, l + 1, r, totalPermute);
+                    word = this.swapString(word, l, i);
+                }
             }
+        } catch (e) {
+            return {"result":"","testcaseresult":e};
         }
     },
     /**
@@ -203,19 +259,50 @@ module.exports = {
     * return roots of quadratic equation 
     */
     findRoots(a, b, c) {
-        let delta = b * b - 4 * a * c;
-        let roots = [];
-        if (delta > 0)// if delta is greater than zero then roots are real and different
-        {
-            root1 = Math.floor((-b + Math.sqrt(delta)) / (2 * a));
-            root2 = Math.floor((-b - Math.sqrt(delta)) / (2 * a));
-            roots = { "quote": "roots are real and different", "firstroot": root1, "secondroot": root2 };
-        } else if (delta < 0) // if delta is less than zero then roots are complex
-        {
-            // let sqrt_avl = Math.sqrt(delta);
-            roots = { "quote": "roots are complex", "firstroot": `( ${-b} + Math.sqrt(${delta})i)/${2 * a})`, "secondroot": `( ${-b} - Math.sqrt(${delta})i)/${2 * a})` };
+        try {
+            if (typeof a != 'number' || typeof b != 'number' || typeof c != 'number')
+                throw 'ax^2+bx+c=0 in this equation value a,b and c should not be string';
+
+            if (a == 0)
+                throw 'ax^2+bx+c=0 in this equation value a should not be zero';
+            let delta = b * b - 4 * a * c;
+            let roots = [];
+            if (delta > 0)// if delta is greater than zero then roots are real and different
+            {
+                root1 = Math.floor((-b + Math.sqrt(delta)) / (2 * a));
+                root2 = Math.floor((-b - Math.sqrt(delta)) / (2 * a));
+                roots = { "quote": "roots are real and different", "firstroot": root1, "secondroot": root2 };
+            } else if (delta < 0) // if delta is less than zero then roots are complex
+            {
+                // let sqrt_avl = Math.sqrt(delta);
+                roots = { "quote": "roots are complex", "firstroot": `( ${-b} + Math.sqrt(${delta})i)/${2 * a})`, "secondroot": `( ${-b} - Math.sqrt(${delta})i)/${2 * a})` };
+            }
+            return { 'result': roots, 'testcaseresult': 'success' };
+        } catch (e) {
+            return { 'result': '', 'testcaseresult': e };
         }
-        return roots;
+    },
+    /**
+     * 
+     * @param {*} board 
+     */
+    calculateWindChill(t, v) {
+        try {
+            if (typeof t == 'string')
+                throw 'temperature should not be string';
+            if (typeof v == 'string')
+                throw 'wind speed should not be string';
+            if (Math.abs(t) > 50)
+                throw 'temperature should not be greater than 50 in its absolute value';
+            if (v > 120 || v < 3)
+                throw 'wind speed(v) should not be larger than 120 or should not be less than 3';
+
+            let windChillTemperature = 35.74 + 0.6215 * t + (0.4275 * t - 35.75) * Math.pow(v, 0.16);
+
+            return { 'result': windChillTemperature, "testcaseresult": "success" };
+        } catch (e) {
+            return { 'result': "", "testcaseresult": e };
+        }
     },
     /**
      *  display board for Tic Tac toe Game 
@@ -740,33 +827,55 @@ module.exports = {
      * @return :sorted array of string 
      */
     insertionSort(arr) {
-        for (let i = 1; i < arr.length; i++) {
-            let key = arr[i];
-            let j = i - 1;
-
-            while (j >= 0 && arr[j] > key) {
-                arr[j + 1] = arr[j];
-                j = j - 1;
+        try {
+            if (arr.length <= 0)
+                throw 'array size should be greater than zero';
+            for (let k = 0; k < arr.length; k++) {
+                if (typeof arr[k] == 'number')
+                    throw 'array element can not be number';
             }
-            arr[j + 1] = key;
+            for (let i = 1; i < arr.length; i++) {
+                let key = arr[i];
+                let j = i - 1;
+
+                while (j >= 0 && arr[j] > key) {
+                    arr[j + 1] = arr[j];
+                    j = j - 1;
+                }
+                arr[j + 1] = key;
+            }
+            return { "result": arr, "testcaseresult": "success" };
+        } catch (e) {
+            return { "result": arr, "testcaseresult": e };
         }
-        return arr;
     },
     /**
      * @param :integerArray unsorted array of number
      * @returns:sorted array of numbers
      */
     bubbleSort(arr) {
-        for (let i = 0; i < arr.length - 1; i++) {
-            for (let j = 0; j < arr.length - i; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    let temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
+        try {
+            if (arr.length == 0)
+                throw 'array size must be greater than zero';
+
+            for (let k = 0; k < arr.length; k++) {
+                if (typeof arr[k] != 'number')
+                    throw 'array element should not be string';
+            }
+            for (let i = 0; i < arr.length - 1; i++) {
+                for (let j = 0; j < arr.length - i; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        let temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
                 }
             }
+            return { "resut": arr, "testcaseresult": "success" };
         }
-        return arr;
+        catch (e) {
+            return { "resut": " ", "testcaseresult": e };
+        }
     },
     /**
      *@param    :array of unsorted strings,left starting index,mid,end index
@@ -824,7 +933,8 @@ module.exports = {
      * l is for left index and r is right index of the sub-array of arr to be sorted
      */
     mergeSort(arr, l, r) {
-        if (l < r) {
+
+        if (Math.floor(l) < Math.floor(r)) {
             // Same as (l+r)/2, but avoids overflow for large l and h 
             l = parseInt(l);
             r = parseInt(r);
@@ -838,73 +948,138 @@ module.exports = {
 
             this.merge(arr, l, m, r);
         }
+
+
     },
     /**
      * @param   :take amount as a input paramter
      * @returns :nothing
      */
     getChange(amount) {
-        const NOTE = [1000, 500, 100, 50, 10, 5, 2, 1];
-        do {
-            if ((amount / NOTE[count]).toFixed(0) != 0 && NOTE[count] != 1) {
-                total = total + amount / NOTE[count];
-                console.log(`Rs.${NOTE[count]} Notes :${(amount / NOTE[count]).toFixed(0)}.`);
-                amount = amount % NOTE[count];
-            }
-            if (NOTE[count] == 1) {
-                console.log(`Rs.${NOTE[count]} Notes :${amount}`);
-                amount = amount - amount;
-            }
-            count++;
-        } while (amount > 0);
+        try {
+            if (typeof amount == 'float')
+                throw 'amount should not be floating point value';
+            if (typeof amount == 'string')
+                throw 'amount should not be string';
+            if (amount <= 0)
+                throw 'amount should be greater than zero';
+            const NOTE = [1000, 500, 100, 50, 10, 5, 2, 1];
+            do {
+                if (parseInt(amount / NOTE[count]) != 0 && NOTE[count] != 1) {
+                    total = total + Math.floor(amount / NOTE[count]);
+                    console.log(`Rs.${NOTE[count]} Notes :${(amount / NOTE[count]).toFixed(0)}.`);
+                    amount = amount % NOTE[count];
+                }
+                if (NOTE[count] == 1) {
+                    console.log(`Rs.${NOTE[count]} Notes :${amount}`);
+                    amount = amount - amount;
+                }
+                count++;
 
-        console.log(`\nTotal Notes :${total} `);
+            } while (amount > 0);
+            console.log(`\nTotal Notes :${total} `);
+            return { "result": "", "testcaseresult": "success" };
+        } catch (e) {
+            return { "result": "", "testcaseresult": e };
+        }
     },
     /**
      * return 0 for sunday ,1 for monday and so on
      */
     getDayOfWeek(month, day, year) {
-        let yo = year - parseInt((14 - month) / 12);
-        let x = yo + parseInt(yo / 4) - parseInt(yo / 100) + parseInt(yo / 400);
-        let mo = month + 12 * parseInt(((14 - month) / 12)) - 2;
-        let d1 = parseInt((day + x + 31 * mo / 12) % 7);
+        try {
+            if (month <= 0 || month > 12)
+                throw "month should be between 1 and 12";
+            if (day <= 0 || day > 31)
+                throw "day should be between 1 and 31";
 
-        return parseInt(d1);
+            let yo = year - parseInt((14 - month) / 12);
+            let x = yo + parseInt(yo / 4) - parseInt(yo / 100) + parseInt(yo / 400);
+            let mo = month + 12 * parseInt(((14 - month) / 12)) - 2;
+            let d1 = parseInt((day + x + 31 * mo / 12) % 7);
+
+            return { "result": parseInt(d1), "testcaseresult": "success" };
+        } catch (e) {
+            return { "result": "", "testcaseresult": e };
+        }
     },
     /**
      * return converted temeperatur depending on method
      */
     convertTemperatur(temperatur, method) {
-        switch (method) {
-            case "F": return (temperatur - 32) * 5 / 9;
-            case "C": return (temperatur * 9 / 5) + 32;
+        try {
+            if (typeof temperatur == 'string')
+                throw 'temperatur should not be string';
+            switch (method) {
+                case "F": return { "result": (temperatur - 32) * 5 / 9, "testcaseresult": "success" };
+                case "C": return { "result": (temperatur * 9 / 5) + 32, "testcaseresult": "success" };
+            }
+
+        } catch (e) {
+            return { "result": "", "testcaseresult": e };
+        }
+    },
+    /**
+     * 
+     * @param :p princial amount,n is number of years,r is rate of interest
+     */
+    calculatemonthlyPayment(p, n, r) {
+        try {
+            if (parseInt(p) < 1)
+                throw "principal amount should not be less than one";
+            if (parseInt(n) < 1)
+                throw "number of year should not be less than one";
+            if (parseInt(r) < 1)
+                throw "rate of interest should not less than one";
+            let payment = (p * r) / (1 - Math.pow((1 + r), -n));
+            return { "result": payment, "testcaseresult": "success" };
+        } catch (e) {
+            return { "result": "", "testcaseresult": e };
         }
     },
     /**
      * return sqaure root of the number
      */
     calculateSqaureRoot(c) {
-        let epsilon = 1e-15;
-        let t = c;
-        while (Math.abs(t - c / t) > epsilon * t) {
-            t = ((c / t) + t) / 2
+        try {
+            if (c <= 0)
+                throw 'number should be non negative';
+
+            let epsilon = 1e-15;
+            let t = c;
+            while (Math.abs(t - c / t) > epsilon * t) {
+                t = ((c / t) + t) / 2
+            }
+            return { "result": t.toFixed(2), "testCaseResult": 'success' };
         }
-        return t.toFixed(2);
+        catch (e) {
+            return { "result": " ", "testCaseResult": e };
+        }
     },
     /**
      *return binary number equivalent of decimal 
      */
     decimalToBinary(decimal) {
-        let binary = "";
-        while (parseInt(decimal) > 0) {
-            let reminder = decimal % 2;
-            binary = parseInt(reminder) + binary;
-            decimal = decimal / 2;
+        try {
+            if (decimal < 0)
+                throw 'number should be greater than zero';
+            if (decimal > 512)
+                throw 'number should not be less than 512';
+            if (typeof decimal == 'string')
+                throw 'number should not be string';
+            let binary = "";
+            while (parseInt(decimal) > 0) {
+                let reminder = decimal % 2;
+                binary = parseInt(reminder) + binary;
+                decimal = decimal / 2;
+            }
+            while (binary.length % 4 != 0) {
+                binary = 0 + binary;
+            }
+            return { "result": binary, "testcaseresult": "success" };
+        } catch (e) {
+            return { "result": "", "testcaseresult": e };
         }
-        while (binary.length % 4 != 0) {
-            binary = 0 + binary;
-        }
-        return binary;
     },
     /**
      * return decimal equivalent of binary

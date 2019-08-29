@@ -4,7 +4,8 @@
   "description": "\"simple test\"",
   "main": "index.js",
   "scripts": {
-    "test": "mocha || true"
+    "test": "mocha || true "
+    
   },
   "author": "",
   "license": "ISC",

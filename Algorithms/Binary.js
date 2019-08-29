@@ -6,32 +6,39 @@
  * @version :1.0
  * 
  ***************************************************************************************************************/
-const utility=require("../Utility/Utility");
- toBinary=()=>{
-     let decimal;
-     do{
+const utility = require("../Utility/Utility");
+toBinary = () => {
+    try {
+        let decimal;
+
         console.log(`enter the positive decimal number`);
-        decimal=utility.getInputNumber();
-    }while(decimal<0);
+        decimal = utility.getInputNumber();
 
-    let binary=utility.decimalToBinary(decimal);
-    console.log(`\ndecimal : ${decimal} \nbinary : ${binary}`);
+        if (decimal < 0)
+            throw 'number should be greater than zero';
+        if (decimal > 512)
+            throw 'number should not be less than 512';
 
-    let l=0;
-    let r=l+4;
-    let binaryArr=binary.split('');
-    for(let i=0;i<4;i++)
-    {
-        let temp=binaryArr[l];
-        binaryArr[l]=binaryArr[r];
-        binaryArr[r]=temp;
-        l++;
-        r++;
+        let binary = utility.decimalToBinary(decimal);
+        console.log(`\ndecimal : ${decimal} \nbinary : ${binary}`);
+
+        let l = 0;
+        let r = l + 4;
+        let binaryArr = binary.split('');
+        for (let i = 0; i < 4; i++) {
+            let temp = binaryArr[l];
+            binaryArr[l] = binaryArr[r];
+            binaryArr[r] = temp;
+            l++;
+            r++;
+        }
+        console.log(`\n\nAfter Swapping Nibble`);
+        decimal = utility.binaryToDecimal(binaryArr);
+        console.log(`binary : ${binaryArr.join('')} \ndecimal : ${decimal}`);
+    } catch (e) {
+        console.log(`Error occured :${e}`);
+        return e;
     }
 
-    console.log(`\n\nAfter Swapping Nibble`);
-    decimal=utility.binaryToDecimal(binaryArr);
-    console.log(`binary : ${binaryArr.join('')} \ndecimal : ${decimal}`);
-    
- }
- module.exports=toBinary();
+}
+module.exports = toBinary();

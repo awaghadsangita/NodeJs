@@ -5,22 +5,28 @@
  ***************************************************************************************************/
 const utility = require("../Utility/Utility");
 quadratic = () => {
-    console.log("Enter value for a,b,c (ax^2+bx+c=0) quadratic equation");
-    let a = utility.getInputNumber();
-    let b = utility.getInputNumber();
-    let c = utility.getInputNumber();
-    let roots;
-    if (Math.abs(a) > 0) {
+    try {
+        console.log("Enter value for a,b,c (ax^2+bx+c=0) quadratic equation");
+        let a = utility.getInputNumber();
+        let b = utility.getInputNumber();
+        let c = utility.getInputNumber();
+        let roots;
+        if (typeof a != 'number' || typeof b != 'number' || typeof c != 'number')
+                throw 'ax^2+bx+c=0 in this equation value a,b and c should not be string';
+
+        if (a== 0) {
+            throw 'ax^2+bx+c=0 in this equation a should not be zero';
+        }
+
         roots = utility.findRoots(a, b, c);
+        console.log(roots["result"]["quote"]);
+        console.log(`First Root :${roots["result"]["firstroot"]}`);
+        console.log(`Second Root :${roots["result"]["secondroot"]}`);
+        //https://www.emathzone.com/tutorials/algebra/the-discriminant-and-complex-roots.html
+
+    } catch (e) {
+        console.log(`error occured :${e}`);
+        return e;
     }
-    else {
-        console.log("a can not be zero for quadratic queation");
-    }
-    console.log(roots["quote"]);
-    console.log(`First Root :${roots["firstroot"]}`);
-    console.log(`Second Root :${roots["secondroot"]}`);
-    //https://www.emathzone.com/tutorials/algebra/the-discriminant-and-complex-roots.html
-    let paramter={"a":a,"b":b,"c":c};
-    return paramter;
 }
 module.exports = quadratic();

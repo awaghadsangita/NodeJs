@@ -2,19 +2,30 @@
  * @purpose	:implement vending machine giveing change in minimum notes
  * 
  * @author	:sangita awaghad
- * @since	:24-08-2019 
  * @version :1.0
+ * @since	:24-08-2019 
  * 
  **************************************************************************************************/
 const utility = require("../Utility/Utility");
 
 vendingMachine = () => {
 
-    console.log(`Enter amount for change`);
-    let amount = utility.getInputNumber();
+    try {
+        console.log(`Enter amount for change`);
+        let amount = utility.getInputNumber();
 
-    utility.getChange(amount);
+        if (typeof amount == 'string')
+            throw 'amount should not be string';
+        if (amount <= 0)
+            throw 'amount should be greater than zero';
+        utility.getChange(amount);
+        return 'success';
 
+    }
+    catch (e) {
+        console.log(`Error Occured :${e}`);
+        return e;
+    }
 }
 
 module.exports = vendingMachine();

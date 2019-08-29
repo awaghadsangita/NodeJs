@@ -6,22 +6,29 @@
 const utility = require("../Utility/Utility");
 
 windChill = () => {
-    console.log("Program To Calculate WindChill Temperature");
+    try {
+        console.log("Program To Calculate WindChill Temperature");
 
-    let t = parseFloat(process.argv[2]);
-    let v = parseFloat(process.argv[3]);
-    // t=45;
-    // v=2;
-    console.log(t + " " + v);
+        let t = parseFloat(process.argv[2]);
+        let v = parseFloat(process.argv[3]);
+        if (typeof t == 'string')
+            throw 'temperature should not be string';
+        if (typeof v == 'string')
+            throw 'wind speed should not be string';
+        if (Math.abs(t) > 50)
+            throw 'temperature should not be greater than 50 in its absolute value';
+        if (v > 120)
+            throw 'wind speed(v) should not be larger than 120';
+        if(v < 3)
+        throw 'wind speed(v) should not be less than 3';
+        
+        let windChillTemperature = utility.calculateWindChill(t,v);
+        if(windChillTemperature["testcaseresult"]=='success')
+            console.log("Wind Chill :" + windChillTemperature['result']);
 
-    if (Math.abs(t) > 50 || v > 120 || v < 3) {
-        console.log("formula is not valid if Temperature(t) is larger than 50 in absolute value or if Wind Speed(v) is larger than 120 or less than 3");
+    } catch (e) {
+        console.log(`error occured :${e}`);
+        return e;
     }
-    else {
-        let windChillTemperature = 35.74 + 0.6215 * t + (0.4275 * t - 35.75) * Math.pow(v, 0.16);
-        console.log("Wind Chill :" + windChillTemperature);
-    }
-    var parameter = { "temperature": t, "windspeed": v };
-    return parameter;
 }
 module.exports = windChill();

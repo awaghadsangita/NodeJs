@@ -8,16 +8,25 @@
  * @version :1.0
  * 
  ***************************************************************************************************************/
-const utility=require("../Utility/Utility");
+const utility = require("../Utility/Utility");
 
-monthlyPayment=()=>{
-    let principal=parseInt(process.argv[2]);
-    let year=parseInt(process.argv[3]);
-    let rate=parseInt(process.argv[4]);
+monthlyPayment = () => {
+    try {
 
-    let n= 12*year;
-    let r=rate/(12*100);
-    let payment= (principal*r)/(1-Math.pow((1+r),-n));
-    console.log(`monthly payment : ${payment.toFixed(2)}`);
+        let principal = parseInt(process.argv[2]);
+        let year = parseInt(process.argv[3]);
+        let rate = parseInt(process.argv[4]);
+      
+        let n = 12 * year;
+        let r = rate / (12 * 100);
+        let payment = utility.calculatemonthlyPayment(principal,year,rate);
+        if(payment["testcaseresult"]=='success')
+            console.log(`monthly payment : ${payment["result"]}`);
+        else
+            console.log(`error occured :${payment["testcaseresult"]}`);
+    } catch (e) {
+        
+        return e;
+    }
 }
-module.exports=monthlyPayment();
+module.exports = monthlyPayment();
