@@ -1,3 +1,11 @@
+/*****************************************************************************************************
+ * @purpose	:create a program which creates banking cash counter where people come in to deposit Cash and withdraw Cash
+ * 			add people in queue
+ * @author	:sangita awaghad
+ * @version	:1.0
+ * @since	:30-08-2019
+ * 
+ *****************************************************************************************************/
 const utility = require('../Utility/Utility');
 const que = require('../Utility/Queue');
 
@@ -22,10 +30,10 @@ bankingCashCounter = () => {
                         throw 'you should add atleast one person in queue';
                     let lastperson = queObj.getLastItem();
                     for (let i = 0; i < totalPerson; i++) {
-                        queObj.enqueue(++lastperson);
+                        queObj.enqueue(++lastperson);//add person in queue by increaming counter
                     }
                     console.log(`Queue Status `);
-                    queObj.display();
+                    queObj.display();               //display status of queue
                     break;
                 case 2:
                     if (queObj.isEmpty()) {
@@ -33,10 +41,10 @@ bankingCashCounter = () => {
                     } else {
                         console.log('Enter the amount you want to deposit');
                         let depositAmount = utility.getInputNumber();
-                        availableBalance = availableBalance + depositAmount;
+                        availableBalance = availableBalance + depositAmount;//add deposited  amount into bank available balance
                         console.log(`Available Balance :${availableBalance}`);
                         console.log(`successfully deposit ${depositAmount}`);
-                        queObj.dequeue();
+                        queObj.dequeue();   //remove person from queue after deposit operation
                     }
                     break;
                 case 3:
@@ -54,20 +62,17 @@ bankingCashCounter = () => {
                                 reply = utility.getString();
                             }
                             else {
-                                availableBalance = availableBalance - withdrawAmount;
+                                availableBalance = availableBalance - withdrawAmount;//substract withdraw amount from bank available balance
                                 console.log(`available Balance :${availableBalance}`);
                                 console.log(`successfully withdaw ${withdrawAmount}`);
                                 reply = 'n';
-                                queObj.dequeue();
-                                console.log("Queue Status");
+                                queObj.dequeue();//remove person from queue after withdraw operation
+                                console.log("Queue Status");    //display queue status
                                 queObj.display();
                             }
                         }
                     } while (reply == 'y');
-
-
                     break;
-
                 case 4: process.exit();
             }
         } while (choice != 4);
