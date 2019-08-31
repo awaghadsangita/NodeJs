@@ -14,9 +14,9 @@ permutation = () => {
         for (let i = 1; i <= string.length; i++) {
             totalPermutation *= i;
         }
-        let permutationArray = [];
-        utility.findPermutation(string, 0, string.length - 1, totalPermutation);
-        
+        let permutationArray ;
+        permutationArray=utility.findPermutation(string, 0, string.length - 1, totalPermutation);
+        console.log(permutationArray["result"]);
     } catch (e) {
         console.log(`error occured :${e}`);
     }

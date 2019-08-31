@@ -12,42 +12,65 @@ const fs = require('fs');
 const linkedlistUtility = require('../Utility/LinkedList');
 
 unOrderList = () => {
-    let listObj = new linkedlistUtility.LinkList();
-    let choice;
-    let filename = '../Files/unorderedList.txt'
+    try {
+        let listObj = new linkedlistUtility.LinkList();
+        let choice;
+        let filename = '../Files/unorderedList.txt'
 
-    do {
         let dataString = fs.readFileSync(filename);//read text file synchronously
         let dataArray = dataString.toString().split(',');//split data string into array
         console.log(dataArray);
 
         for (let i = 0; i < dataArray.length - 1; i++) {
-            let node = new linkedlistUtility.Node(dataArray[i], null);
-            listObj.insertAtEnd(node);//call insert node at end of list
+            let regex = /^[a-zA-Z0-9]{1,}$/;
+            if (regex.test(dataArray[i])) {
+                let node = new linkedlistUtility.Node(dataArray[i], null);
+                let tc1 = listObj.insertAtEnd(node);//call insert node at end of list
+                if (tc1 == 'linked list node data should not contain special symbol' || tc1 == 'linked list data should not be undefined') {
+                    throw tc1;
+                }
+            }
         }
-        console.log("List of Elements in file")
-        listObj.display();//call display of linked list
+        do {
+            console.log("\nList of Elements in file")
+            let tc2 = listObj.display();//call display of linked list
+            if (tc2 == 'list should not be empty') {
+                throw tc2;
+            }
 
-        console.log("Enter the word to search in file");
-        let word = utility.getString();//getting user input to search in list
+            console.log("\nEnter the word to search in file");
+            let word = utility.getString();//getting user input to search in list
 
-        let position = listObj.index(word)//find position of searchword in list
-        if (position == -1) {//if searchword not found then insert at end of link list
-            console.log(`${word} NOT Found in the list`);
-            let node = new linkedlistUtility.Node(word, null);//creating object of node 
-            listObj.insertAtEnd(node);//insert node at end of linked list
-        }
-        else {//if searchword found in list remove it from list
-            console.log(`${word} IS Found in the list at position ${position}`);
-            listObj.deleteAt(position);//call delete at specific method to delete node from linked ;ist
-        }
-        listObj.display();//call display method of linked list
+            let position = listObj.index(word)//find position of searchword in list
+            if (position == -1) {//if searchword not found then insert at end of link list
+                console.log(`\n${word} NOT Found in the list`);
+                let node = new linkedlistUtility.Node(word, null);//creating object of node 
+                let tc1 = listObj.insertAtEnd(node);//insert node at end of linked list
+                if (tc1 == 'linked list node data should not contain special symbol' || tc1 == 'linked list data should not be undefined') {
+                    throw tc1;
+                }
+            }
+            else {//if searchword found in list remove it from list
+                console.log(`\n${word} IS Found in the list at position ${position}`);
+                let tc2=listObj.deleteAt(position);//call delete at specific method to delete node from linked ;ist
+                if (tc2 == 'you should not delete node from empty linked list'||tc2=='you should not delete zeroth position node') {
+                    throw tc2;
+                }
+            }
+            let tc3=listObj.display();//call display method of linked list
+            if (tc3 == 'list should not be empty') {
+                throw tc3;
+            }
+        
+        console.log('\n\ndo you want to continue(yes/no)');//asked user to perfrom serach one more time
+        choice = utility.getString();
+        } while (choice != 'no');
         let content = listObj.getString();//return node data as string
         fs.writeFileSync(filename, content);//call write method of fs module to write content into file
         console.log("file write successfully");
-        console.log('do you want to continue(yes/no)');//asked user to perfrom serach one more time
-        choice = utility.getString();
 
-    } while (choice != 'no');
+    } catch (e) {
+        console.log(`Error Occured :${e}`);
+    }
 }
 module.exports = unOrderList();

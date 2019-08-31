@@ -1,1 +1,1 @@
-55,11,12,56,45,32,87,98,43,
+55,11,77,12,56,45,you should not concat node data from empty linked listyou should not concat node data from empty linked list81,you should not concat node data from empty linked listyou should not concat node data from empty linked listyou should not concat node data from empty linked listyou should not concat node data from empty linked listyou should not concat node data from empty linked list32,87,98,43,

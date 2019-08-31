@@ -12,13 +12,20 @@ const utility=require('../Utility/Utility');
 findPrimeAnagramNotAnagram=()=>{
 
     let primeArray=utility.getPrimeNumber(0,1000);//return array of prime numbers between 0 to 1000
-    
+    if(primeArray=='starting and ending point should be number'||primeArray=='start and end point of range should not be negative')
+    {
+        throw primeArray;
+    }
     console.log("*********Prime Array*******")
     for(let i=0;i<primeArray.length;i++)
     {
         process.stdout.write(`${primeArray[i]} `);
     }
     let anagramArray=utility.getAnagram(primeArray);//return two d array of anangram and not anagram numbers
+    if(anagramArray=='array element not in have proper data type')
+    {
+        throw anagramArray;
+    }
     console.log("\n\n*********Anagram Array*******")
     for(let i=0;i<anagramArray[0].length;i++)
     {

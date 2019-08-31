@@ -17,13 +17,28 @@ function primeAnagramQueue(){
     let listObj=new linkedList.LinkList();
     let node;
     let primeArray= utility.getPrimeNumber(0,1000);//return array of prime numbers between 0 to 1000
-    
+    if(primeArray=='starting and ending point should be number'||primeArray=='start and end point of range should not be negative')
+    {
+        throw primeArray;
+    }
     console.log("*********Prime Array*******")
     for(let i=0;i<primeArray.length;i++)
     {
         process.stdout.write(`${primeArray[i]} `);
     }
-    let anagramArray=utility.getOnlyAnagram(primeArray);//return array of anagram number which are prime 
+    let primeNumberArray=[]
+    for(let i=0;i<primeArray.length;i++)
+    {
+        if(typeof primeArray[i]=='number')
+        {
+            primeNumberArray[i]=primeArray[i];
+        }
+    }
+    let anagramArray=utility.getOnlyAnagram(primeNumberArray);//return array of anagram number which are prime 
+    if(anagramArray=='array element not in have proper data type')
+    {
+        throw anagramArray;
+    }
     anagramArray.sort((a,b) => a-b);    //sort anagram elements
     for(let i=0;i<anagramArray.length;i++)
     {

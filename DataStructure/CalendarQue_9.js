@@ -13,7 +13,7 @@ calender = () => {
     try {
         let month = parseInt(process.argv[2]);
         let day = 1;
-        let year = parseInt(process.argv[4]);
+        let year = parseInt(process.argv[3]);
         let listObj = new linkList.LinkList();
         if (month <= 0 || month > 12)
             throw "month should be between 1 and 12";
@@ -37,7 +37,11 @@ calender = () => {
         while (count < dayOfWeekIndex["result"]) {
             mMonth[i][count] = 0;
             let nodeObj1 = new linkList.DayNode(days[count], 0, null);//create node object
-            listObj.insertAtEnd(nodeObj1);//call insert at end method of linked list
+            let tc1=listObj.insertAtEnd(nodeObj1);//call insert at end method of linked list
+            if(tc1=='linked list node data should not contain special symbol'||tc1=='linked list data should not be undefined')
+            {
+                throw tc1;
+            }
             count++;
 
         }
@@ -46,7 +50,11 @@ calender = () => {
         while (d <= monthDays[month]) {
             count++;
             let nodeObj2 = new linkList.DayNode(days[count], d++, null)
-            listObj.insertAtEnd(nodeObj2);//call insert at end method of linked list
+            let tc1=listObj.insertAtEnd(nodeObj2);//call insert at end method of linked list
+            if(tc1=='linked list node data should not contain special symbol'||tc1=='linked list data should not be undefined')
+            {
+                throw tc1;
+            }
             if (count % 7 == 0) {
                 i++;
                 mMonth[i] = new Array(7);
@@ -56,8 +64,12 @@ calender = () => {
         if (count % 7 != 0) {
             mMonth[i][count] = 0;
             count++;
-            let nodeObj3 = new linkList.DayNode(days[count], 0, null)
-            listObj.insertAtEnd(nodeObj);//call insert at end method of linked list
+            let nodeObj = new linkList.DayNode(days[count], 0, null)
+            let tc1=listObj.insertAtEnd(nodeObj);//call insert at end method of linked list
+            if(tc1=='linked list node data should not contain special symbol'||tc1=='linked list data should not be undefined')
+            {
+                throw tc1;
+            }
         }
         console.log(`\n\t${calenderMonth[month]} ${year}`);
         console.log(`${days[0]} ${days[1]} ${days[2]} ${days[3]} ${days[4]} ${days[5]} ${days[6]}`);
@@ -79,6 +91,7 @@ calender = () => {
             if (count % 7 == 0)
                 console.log();
         }
+        console.log();
     } catch (e) {
         console.log(`error occured :${e}`);
     }

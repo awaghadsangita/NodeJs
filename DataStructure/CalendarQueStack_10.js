@@ -15,6 +15,7 @@ calender = () => {
         let month = parseInt(process.argv[2]);
         let day = 1;
         let year = parseInt(process.argv[4]);
+        
         let listQueObj = new linkList.LinkList();//create linked list object
         if (month <= 0 || month > 12)
             throw "month should be between 1 and 12";
@@ -33,12 +34,16 @@ calender = () => {
         let mMonth = [[], []];
         let count = 0;
         let i = 0;
-
+        console.log(dayOfWeekIndex["result"]+"==>");
         mMonth[i] = new Array(7);
         while (count < dayOfWeekIndex["result"]) {
             mMonth[i][count] = 0;
             let nodeObj1 = new linkList.DayNode(days[count], 0, null);//create calender node object
-            listQueObj.insertAtEnd(nodeObj1);//call insert at end method of linked list to insert node
+            let tc1=listQueObj.insertAtEnd(nodeObj1);//call insert at end method of linked list to insert node
+            if(tc1=='linked list node data should not contain special symbol'||tc1=='linked list data should not be undefined')
+            {
+                throw tc1;
+            }
             count++;
 
         }
@@ -48,7 +53,11 @@ calender = () => {
 
             count++;
             let nodeObj2 = new linkList.DayNode(days[count], d++, null)
-            listQueObj.insertAtEnd(nodeObj2);//call insert at end method of linked list to insert node
+            let tc1=listQueObj.insertAtEnd(nodeObj2);//call insert at end method of linked list to insert node
+            if(tc1=='linked list node data should not contain special symbol'||tc1=='linked list data should not be undefined')
+            {
+                throw tc1;
+            }
             if (count % 7 == 0) {
                 i++;
                 mMonth[i] = new Array(7);
@@ -58,8 +67,12 @@ calender = () => {
         if (count % 7 != 0) {
             mMonth[i][count] = 0;
             count++;
-            let nodeObj3 = new linkList.DayNode(days[count], 0, null)
-            listQueObj.insertAtEnd(nodeObj);//call insert at end method of linked list to insert node in queue
+            let nodeObj = new linkList.DayNode(days[count], 0, null)
+            let tc1=listQueObj.insertAtEnd(nodeObj);//call insert at end method of linked list to insert node in queue
+            if(tc1=='linked list node data should not contain special symbol'||tc1=='linked list data should not be undefined')
+            {
+                throw tc1;
+            }
         }
 
         console.log(`\n\t${calenderMonth[month]} ${year}`);
@@ -70,7 +83,11 @@ calender = () => {
         while(temp!=null)
         {
             let nodeStkObj1 = new linkList.DayNode(days[count],temp.data, null);
-            listStkObj1.insertFirst(nodeStkObj1);//call insert at first method of linked list to insert node in first stack
+            let tc2=listStkObj1.insertFirst(nodeStkObj1);//call insert at first method of linked list to insert node in first stack
+            if(tc2=='linked list node data should not contain special symbol'||tc2=='linked list data should not be undefined')
+            {
+                throw tc2;
+            }
             temp=temp.next;
         }
 
@@ -79,12 +96,16 @@ calender = () => {
         while(temp!=null)
         {
             let nodeStkObj2 = new linkList.DayNode(days[count],temp.data, null);
-            listStkObj2.insertFirst(nodeStkObj2);//call insert at first method of linked list to insert node in second stack
+            let tc2=listStkObj2.insertFirst(nodeStkObj2);//call insert at first method of linked list to insert node in second stack
+            if(tc2=='linked list node data should not contain special symbol'||tc2=='linked list data should not be undefined')
+            {
+                throw tc2;
+            }
             temp=temp.next;
         }
 
         count = 0;
-        let top=listStkObj2.HEAD.next;//get head of linked list which is call as top i.e top of second stack
+        let top=listStkObj2.HEAD;//get head of linked list which is call as top i.e top of second stack
         while (top != null) {
             let date = top.data;//get date from linekd list node
             if (date == 0)

@@ -197,17 +197,14 @@ module.exports = {
      */
     findPermutation(word, l, r, totalPermute) {
         try {
-            if(typeof word=='number')
-            {
+            if (typeof word == 'number') {
                 throw "input value should not be number";
             }
-            if(word.length==0)
-            {
+            if (word.length == 0) {
                 throw "input value should not be of length zero";
             }
-            let format=/^[a-zA-Z]{1,}$/;
-            if(!format.test(word))
-            {
+            let format = /^[a-zA-Z]{1,}$/;
+            if (!format.test(word)) {
                 throw "input value should not be contain special symbol";
             }
             if (l == r) {
@@ -217,7 +214,7 @@ module.exports = {
                     let itr, j, k = 0;
                     for (itr = 0; itr < totalPermute; itr++) {
                         for (j = 0; j < itr; j++) {
-                            if (permute[j].localeCompare(permute[itr]) === 0)
+                            if (permute[j] == permute[itr])
                                 break;
                         }
                         if (itr == j) {
@@ -225,11 +222,13 @@ module.exports = {
                             k++;
                         }
                     }
-                    console.log(permute);
-                    return {"result":permute,"testcaseresult":"success"};
+
+                    let arr = { "result": permute, "testcaseresult": "success" };
+                    console.log(arr["result"]);
+                    return arr;
                 }
-                
-                
+
+
             }
             else {
                 for (let i = l; i <= r; i++) {
@@ -239,7 +238,7 @@ module.exports = {
                 }
             }
         } catch (e) {
-            return {"result":"","testcaseresult":e};
+            return { "result": "", "testcaseresult": e };
         }
     },
     /**
@@ -1117,4 +1116,116 @@ module.exports = {
         }
         return -1;
     },
+    /**
+     * @return factorial of number
+     */
+    getFactorial(n) {
+        let fact = 1;
+        for (let i = 1; i <= n; i++) {
+            fact = fact * i;
+        }
+        return fact;
+    },
+    /**
+     * @param start:specify start point of range
+     * @param end:specify end point of range
+     */
+    getPrimeNumber(start, end) {
+        try {
+            if (typeof start == 'string' || typeof end == 'string') {
+                throw 'starting and ending point should be number';
+            }
+            if (start < -1 || end < -1) {
+                throw 'start and end point of range should not be negative';
+            }
+            if (start >end) {
+                throw 'end point should not be less than start point in the range';
+            }
+            var primeNoArray = [];
+
+            for (var i = start; i < end; i++) {
+                for (var j = 2; j < i; j++) {
+                    var isPrime = 1;
+                    if (i % j == 0) {
+                        isPrime = 0
+                        break;
+                    }
+                }
+                if (isPrime == 1 || i == 2) {
+                    primeNoArray.push(i);
+
+                }
+            }
+
+            return primeNoArray;
+        }
+        catch (e) {
+            return e;
+        }
+    },
+    /**
+     * @return array of anagram and not anagram
+     */
+    getAnagram(arr) {
+        try {
+            
+            let anagram = [[], []];
+            anagram[0] = new Array();
+            anagram[1] = new Array();
+            for (let i = 0; i < arr.length - 1; i++) {
+                let firstNumber = "";
+                firstNumber = firstNumber + arr[i];
+                let firstArray = firstNumber.split('');
+                let isAnagram = false;
+                for (let j = i + 1; j < arr.length; j++) {
+                    let secondNumber = "";
+                    secondNumber = secondNumber + arr[j];
+                    let secondArray = secondNumber.split('');
+
+                    if (firstArray.sort().join('') == secondArray.sort().join('')) {
+                        anagram[0].push(arr[i]);
+                        anagram[0].push(arr[j]);
+                        isAnagram = true;
+                        break;
+                    }
+
+                }
+                if (isAnagram == false) {
+                    anagram[1].push(arr[i]);
+                }
+            }
+            return anagram;
+        } catch (e) {
+            return e;
+        }
+    },
+    /**
+     * return only array of anagrams
+     */
+    getOnlyAnagram(arr)
+    {
+        try {
+            let anagram = [];
+            for (let i = 0; i < arr.length - 1; i++) {
+                let firstNumber = "";
+                firstNumber = firstNumber + arr[i];
+                let firstArray = firstNumber.split('');
+                let isAnagram = false;
+                for (let j = i + 1; j < arr.length; j++) {
+                    let secondNumber = "";
+                    secondNumber = secondNumber + arr[j];
+                    let secondArray = secondNumber.split('');
+
+                    if (firstArray.sort().join('') == secondArray.sort().join('')) {
+                        anagram.push(arr[i]);
+                        anagram.push(arr[j]);
+                    }
+                }
+           }
+            return anagram;
+        } catch (e) {
+            return e;
+        }
+    }
+
 }

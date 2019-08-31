@@ -12,7 +12,7 @@ calender = () => {
     try {
         let month = parseInt(process.argv[2]);
         let day = 1;
-        let year = parseInt(process.argv[4]);
+        let year = parseInt(process.argv[3]);
 
         if (month <= 0 || month > 12)
             throw "month should be between 1 and 12";
@@ -27,7 +27,7 @@ calender = () => {
         }
         let dayOfWeekIndex = utility.getDayOfWeek(month, day, year);
 
-        if (dayOfWeekIndex["testcasetesult"] != 'success') {
+        if (dayOfWeekIndex["testcasetesult"] == 'success') {
             console.log(dayOfWeekIndex["result"]);
             console.log(`\n\ngiven date :${day}-${month}-${year}`);
             console.log(`day of week :${days[dayOfWeekIndex["result"]]}`);
@@ -52,15 +52,17 @@ calender = () => {
                 count = 0;
             }
         }
-        if (count % 7 != 0) {
+        
+        while(parseInt(count % 7) != 0) {
             mMonth[i][count] = 0;
             count++;
         }
+        
         console.log(`\n\t${calenderMonth[month]} ${year}`);
         console.log(`${days[0]} ${days[1]} ${days[2]} ${days[3]} ${days[4]} ${days[5]} ${days[6]}`);
-        for (let i = 0; i < mMonth.length - 1; i++) {
+        for (let i = 0; i < mMonth.length; i++) {
             mMonth[i];
-            for (let j = 0; j < mMonth[i].length; j++) {
+            for (let j = 0; j < 7; j++) {
                 if (mMonth[i][j] == 0)
                     process.stdout.write(`    `);
                 else if (mMonth[i][j] < 10)

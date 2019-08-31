@@ -11,31 +11,37 @@
 const utility = require('../Utility/Utility');
 
 findPrime = () => {
-
-    let prime = [[], []];
-    let start = 0;
-    let end = 100;
-    let k = 0;
-    for (let i = 0; i < 10; i++) {
-        let primeArray = utility.getPrimeNumber(start, end);//return array of prime numbers in specific range
-        prime[i] = new Array(primeArray);
-        prime[i][k++] = primeArray;
-        start += 100;
-        end += 100;
-    }
-    start = 0;
-    end = 100;
-
-    console.log("*********Prime Array*******")
-    for (let i = 0; i < 10; i++) {
-        process.stdout.write(`Range :${start}-${end}  :`);
-        for (let j = 0; j < 100; j++) {
-            if (typeof prime[i][j] != 'undefined')
-                process.stdout.write(`${prime[i][j]} `);
+    try {
+        let prime = [[], []];
+        let start = 0;
+        let end = 100;
+        let k = 0;
+        for (let i = 0; i < 10; i++) {
+            let primeArray = utility.getPrimeNumber(start, end);//return array of prime numbers in specific range
+            if (primeArray == 'starting and ending point should be number' || primeArray == 'start and end point of range should not be negative') {
+                throw primeArray;
+            }
+            prime[i] = new Array(primeArray);
+            prime[i][k++] = primeArray;
+            start += 100;
+            end += 100;
         }
-        start += 100;
-        end += 100;
-        console.log();
+        start = 0;
+        end = 100;
+
+        console.log("*********Prime Array*******")
+        for (let i = 0; i < 10; i++) {
+            process.stdout.write(`Range :${start}-${end}  :`);
+            for (let j = 0; j < 100; j++) {
+                if (typeof prime[i][j] != 'undefined')
+                    process.stdout.write(`${prime[i][j]} `);
+            }
+            start += 100;
+            end += 100;
+            console.log();
+        }
+    } catch (e) {
+        console.log(`Error occured :${e}`);
     }
 
 }

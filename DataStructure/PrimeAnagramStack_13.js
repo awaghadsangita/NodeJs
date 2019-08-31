@@ -26,7 +26,11 @@ function findPrimeAnagramStack() {
 
     for (let i = 0; i < anagramArray.length; i++) {
         node = new linkedList.Node(anagramArray[i], null);//create node object
-        listObj.insertFirst(node);//call insert at end method of linked list
+        let tc1=listObj.insertFirst(node);//call insert at end method of linked list
+        if(tc1!='success')
+        {
+            throw tc1;
+        }
     }
 
     console.log("\n\n*********Anagram in reverse order*********");

@@ -15,7 +15,7 @@ bankingCashCounter = () => {
         let availableBalance = 50000;
         let queObj = new que.Queue();
         do {
-            console.log('*************************')
+            console.log('\n*************************')
             console.log('1.Add Person in Queue');
             console.log('2.Deposite Amount');
             console.log('3.Withdraw Amount');
@@ -29,11 +29,20 @@ bankingCashCounter = () => {
                     if (totalPerson == 0)
                         throw 'you should add atleast one person in queue';
                     let lastperson = queObj.getLastItem();
+                    if (lastperson == 'you can not get last element of empty queue') {
+                        return lastperson;
+                    }
                     for (let i = 0; i < totalPerson; i++) {
-                        queObj.enqueue(++lastperson);//add person in queue by increaming counter
+                        let tc1 = queObj.enqueue(++lastperson);//add person in queue by increaming counter
+                        if (tc1 == 'data to be added should not contain special symbol' || tc1 == 'data to be added should not be undefined' || tc1 == 'data to be added should not be null') {
+                            return tc1;
+                        }
                     }
                     console.log(`Queue Status `);
-                    queObj.display();               //display status of queue
+                    let tc2 = queObj.display();               //display status of queue
+                    if (tc2 == 'you should not display empty queue') {
+                        console.log("queue is empty");
+                    }
                     break;
                 case 2:
                     if (queObj.isEmpty()) {
@@ -44,7 +53,10 @@ bankingCashCounter = () => {
                         availableBalance = availableBalance + depositAmount;//add deposited  amount into bank available balance
                         console.log(`Available Balance :${availableBalance}`);
                         console.log(`successfully deposit ${depositAmount}`);
-                        queObj.dequeue();   //remove person from queue after deposit operation
+                        let tc3 = queObj.dequeue();   //remove person from queue after deposit operation
+                        if (tc3 == 'you should not remove item from empty queue') {
+                            throw tc3;
+                        }
                     }
                     break;
                 case 3:
@@ -66,9 +78,15 @@ bankingCashCounter = () => {
                                 console.log(`available Balance :${availableBalance}`);
                                 console.log(`successfully withdaw ${withdrawAmount}`);
                                 reply = 'n';
-                                queObj.dequeue();//remove person from queue after withdraw operation
+                                let tc4 = queObj.dequeue();//remove person from queue after withdraw operation
+                                if (tc4 == 'you should not remove item from empty queue') {
+                                    throw tc4;
+                                }
                                 console.log("Queue Status");    //display queue status
-                                queObj.display();
+                                let tc5 = queObj.display();
+                                if (tc5 == 'you should not display empty queue') {
+                                    return tc5;
+                                }
                             }
                         }
                     } while (reply == 'y');
