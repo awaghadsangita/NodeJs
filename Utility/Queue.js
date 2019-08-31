@@ -13,12 +13,24 @@ class Queue {
     }
     enqueue(item) {
         try {
+            let regex = /^[a-zA-Z0-9]{1,}$/;
+            if (!regex.test(item)) {
+                throw 'data to be added should not contain special symbols';
+            }
+            if (item == 'undefined') {
+                throw 'data to be added should not be undefined';
+            }
+            if (item == null) {
+                throw 'data to be added should not be null';
+            }
             if (this.isFull()) {
                 throw 'queue is full';
             }
             else {
-                this.queue[++this.rear] = item;
+                this.rear = this.rear + 1;
+                this.queue[this.rear] = item;
             }
+            return 'success';
         } catch (e) {
             return e;
         }
@@ -30,51 +42,55 @@ class Queue {
             }
             else {
                 let item = this.queue[++this.front];
-                return { "result": item, "testcaseresult": "success" };
+                return item;
             }
         } catch (e) {
-            return { "result": "", "testcaseresult": e };
+            return e;
         }
     }
     display() {
-        
+
         try {
             if (this.isEmpty()) {
                 throw 'queue is empty'
             } else {
                 let mFront = this.front;
-             
+
                 for (let i = ++mFront; i <= this.rear; i++) {
                     console.log(`${this.queue[i]} `);
                 }
             }
-
+            return 'success';
         } catch (e) {
-        
-            console.log(e);
             return e;
         }
     }
-    size(){
-        let mFront=this.front;
-        let count=0;
-        for(let i=mFront;i<this.queue;i++)
-        {
-            count++;
+    size() {
+        let mFront = this.front;
+        let count = 0;
+        if (this.rear > -1) {
+            for (let i = mFront; i <= this.rear; i++) {
+                count++;
+            }
         }
         return count;
     }
-    getLastItem()
-    {
-        let mFront=this.front;
-        let count=0;
-        for(let i=mFront;i<this.queue;i++)
-        {
-           
-            count=this.queue[i];
+    getLastItem() {
+        try {
+            let mFront = this.front;
+            if(mFront==-1)
+            {
+                mFront=mFront+1;
+            }
+            let count = 0;
+            for (let i = mFront; i <= this.rear; i++) {
+                count = this.queue[i];
+            }
+            return count;
+        } catch (e) {
+            return e;
         }
-        return count;
     }
-    
+
 }
-module.exports={Queue};
+module.exports = { Queue };

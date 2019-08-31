@@ -1,3 +1,12 @@
+/*******************************************************************************************************
+ * @purpose	:create a program which creates banking cash counter where people come in to deposit Cash and withdraw Cash
+ * 			add people in queue
+ * 
+ * @author	:sangita awaghad
+ * @version	:1.0
+ * @since	:03-08-2019
+ * 
+ *******************************************************************************************************/
 const utility = require('../Utility/Utility');
 const que = require('../Utility/Queue');
 
@@ -21,14 +30,26 @@ bankingCashCounter = () => {
                     if (totalPerson == 0)
                         throw 'you should add atleast one person in queue';
                     let lastperson = queObj.getLastItem();
+                    if(typeof lastperson!='number')
+                    {
+                        throw lastperson;
+                    }
                     for (let i = 0; i < totalPerson; i++) {
-                        queObj.enqueue(++lastperson);
+                        let tc1=queObj.enqueue(++lastperson);//call add method to add person in queue
+                        if(tc1!='success')
+                        {
+                            throw tc1;
+                        }
                     }
                     console.log(`Queue Status `);
-                    queObj.display();
+                    let tc2=queObj.display();//call display method for displaying queue status
+                    if(tc2!='success')
+                    {
+                        throw tc2;
+                    }
                     break;
                 case 2:
-                    if (queObj.isEmpty()) {
+                    if (queObj.isEmpty()) {//check queue status before deposit operation
                         console.log('please stand in the queue');
                     } else {
                         console.log('Enter the amount you want to deposit');
@@ -36,13 +57,17 @@ bankingCashCounter = () => {
                         availableBalance = availableBalance + depositAmount;
                         console.log(`Available Balance :${availableBalance}`);
                         console.log(`successfully deposit ${depositAmount}`);
-                        queObj.dequeue();
+                        let tc3=queObj.dequeue();//call dequeue method to remove person from queue
+                        if(tc3=='queue is empty')
+                        {
+                            throw tc3;
+                        }
                     }
                     break;
                 case 3:
                     let reply = 'n';
                     do {
-                        if (queObj.isEmpty()) {
+                        if (queObj.isEmpty()) {//check queue status befor doing withdaw operation
                             console.log('please stand in queue');
                         }
                         else {
@@ -58,15 +83,18 @@ bankingCashCounter = () => {
                                 console.log(`available Balance :${availableBalance}`);
                                 console.log(`successfully withdaw ${withdrawAmount}`);
                                 reply = 'n';
-                                queObj.dequeue();
+                                let tc4=queObj.dequeue();//call dequeu method to remove person from queue
+                                if(tc4=='queue is empty')
+                                {
+                                    throw tc4;
+                                }
+
                                 console.log("Queue Status");
-                                queObj.display();
+                                queObj.display();//display queue status
                             }
                         }
                     } while (reply == 'y');
-
-
-                    break;
+                   break;
 
                 case 4: process.exit();
             }
