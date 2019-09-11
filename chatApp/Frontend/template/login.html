@@ -1,0 +1,29 @@
+<body id='regBody' ng-contoller="loginCtrl">
+    <div class='row'>
+        <br/>
+        <div class='col-lg-4'></div>
+        <div class='col-lg-4'>
+            <form id='loginForm'>
+                <label  class="regHeading"><b>Login Form</b></label></br>
+                <div class="form-group">
+                    <label for="email">Email*</label>
+                    <input type="text" class="form-control" id="email" name="email" ng-model="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password*</label>
+                    <input type="text" class="form-control" id="password" name="password" ng-model="password">
+                </div>
+                <div class="form-group">
+                      
+                        <button type="submit" class="btn btn-success" id="btnlogin" name="btnlogin" ng-click="login()">Login</button>
+                        <button type="button" class="btn btn-danger" id="btncancel">Cancel</button>
+                </div>
+                <div class="form-group">
+                      <b><p class='p'>don't have account? <a href='registration.html' style='text-decoration-style: solid'> Sign up here </a></p></b><br/>
+                      <b><a class='a' href='forgetPassword.html' style='text-decoration-style: solid'> Forgot Your Password </a></b>
+                </div>
+                </form>
+        </div>
+    </div>
+</body>
+

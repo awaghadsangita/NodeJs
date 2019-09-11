@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href='../css/style.css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
+    <script src="http://code.angularjs.org/1.2.13/angular.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+
+    <script src="controller/registrationCtrl.js"></script>
+    <script src="controller/loginCtrl.js"></script>
+
+    <script src="services/registerService.js"></script>
+    <script src="services/loginService.js"></script>
+
+</head>
+
+<body ng-app="chatAppModule">
+
+        <!-- MAIN CONTENT -->
+
+        <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT -->
+        <div>
+            <ui-view></ui-view>
+        </div>
+    
+    </div>
+</body>
+
+</html>
