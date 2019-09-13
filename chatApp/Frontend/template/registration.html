@@ -1,0 +1,37 @@
+<body id='regBody' ng-contoller="registrationCtrl">
+    <div class='col-lg-4'></div>
+    <div class='col-lg-4'>
+        <form id='regForm'>
+            <label class="regHeading"><b>Registration Form</b></label></br>
+            <div class="form-group">
+                <label for="firstName">Firstname*</label>
+                <input type="text" class="form-control" ng-model="firstName" id="firstName" name="firstName">
+            </div>
+            <div class="form-group">
+                <label for="lastname">Lastname*</label>
+                <input type="text" class="form-control" ng-model="lastName" id="lastName" name="lastName">
+            </div>
+            <div class="form-group">
+                <label for="email">Email*</label>
+                <input type="text" class="form-control" ng-model="email" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password*</label>
+                <input type="text" class="form-control" ng-model="password" id="password" name="password">
+            </div>
+            <div class="form-group">
+
+                <button type="submit" class="btn btn-success" id="btnsubmit" ng-click="register()">Submit</button>
+                <button type="button" class="btn btn-danger" id="btncancel">Cancel</button>
+            </div>
+            <div class="form-group">
+                <b>
+                    <p class='p'>Already has Account? <a ui-sref='login' href='login.html' style='text-decoration-style: solid'> Login
+                        </a></p>
+                </b>
+            </div>
+
+        </form>
+    </div>
+    </div>
+</body>

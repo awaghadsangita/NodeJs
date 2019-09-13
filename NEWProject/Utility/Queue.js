@@ -35,7 +35,6 @@ class Queue {
     enqueue(item) {
         try {
             let regex = /^[a-zA-Z0-9]{1,}$/;
-<<<<<<< HEAD
             if (!regex.test(item))
                 throw 'data to be added should not contain special symbol';
             if (item == 'undefined')
@@ -43,23 +42,11 @@ class Queue {
             if (item == null)
                 throw 'data to be added should not be null';
 
-=======
-            if (!regex.test(item)) {
-                throw 'data to be added should not contain special symbols';
-            }
-            if (item == 'undefined') {
-                throw 'data to be added should not be undefined';
-            }
-            if (item == null) {
-                throw 'data to be added should not be null';
-            }
->>>>>>> chatApp
             if (this.isFull()) {
                 throw 'you should not into fulll queue';
             }
             else {
-                this.rear = this.rear + 1;
-                this.queue[this.rear] = item;
+                this.queue[++this.rear] = item;
             }
             return 'success';
         } catch (e) {
@@ -99,7 +86,6 @@ class Queue {
             }
             return 'success';
         } catch (e) {
-<<<<<<< HEAD
 
             console.log(e);
             return e;
@@ -153,21 +139,8 @@ class Queue {
             this.queue[this.rear] = data;
         } catch (e) {
 
-=======
-            return e;
         }
     }
-    size() {
-        let mFront = this.front;
-        let count = 0;
-        if (this.rear > -1) {
-            for (let i = mFront; i <= this.rear; i++) {
-                count++;
-            }
->>>>>>> chatApp
-        }
-    }
-<<<<<<< HEAD
     /**
      * 
      */
@@ -179,24 +152,5 @@ class Queue {
             return deletedElement;
         }
     }
-=======
-    getLastItem() {
-        try {
-            let mFront = this.front;
-            if(mFront==-1)
-            {
-                mFront=mFront+1;
-            }
-            let count = 0;
-            for (let i = mFront; i <= this.rear; i++) {
-                count = this.queue[i];
-            }
-            return count;
-        } catch (e) {
-            return e;
-        }
-    }
-
->>>>>>> chatApp
 }
 module.exports = { Queue };
